@@ -1,22 +1,29 @@
-
-version: '3.8'
+version: '3.8'  # 도커 컴포즈 파일 형식 버전 지정
 
 services:
   web:
+    # Dockerfile이 위치한 현재 디렉토리를 빌드합니다.
     build: .
+    # 호스트의 8000 포트를 컨테이너의 8000 포트에 매핑합니다.
     ports:
       - "8000:8000"
+    # 호스트 디렉토리를 컨테이너의 /app 디렉토리에 마운트하여,
+    # 코드 변경 시 컨테이너 내에서도 즉각 반영되도록 합니다.
     volumes:
       - .:/app
+    # 웹 서비스는 db 서비스가 먼저 시작된 후 실행됩니다.
     depends_on:
       - db
 
   db:
+    # MySQL 8.0 이미지를 사용하여 데이터베이스 서비스를 생성합니다.
     image: mysql:8.0
+    # 데이터베이스 환경 변수 설정
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: test_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword   # MySQL 루트 비밀번호
+      MYSQL_DATABASE: test_db             # 생성될 데이터베이스 이름
+      MYSQL_USER: user                    # 데이터베이스 사용자 이름
+      MYSQL_PASSWORD: password            # 데이터베이스 사용자 비밀번호
+    # 호스트의 3306 포트를 컨테이너의 3306 포트에 매핑합니다.
     ports:
       - "3306:3306"
