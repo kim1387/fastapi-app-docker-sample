@@ -97,7 +97,9 @@ docker exec -it <mysql-container-id> mysql -u user -p
   ```bash
   docker restart <컨테이너 ID>
   ```
-
+- **컨테이너 상세 정보 확인**: `docker inspect <컨테이너 ID>`
+- **디스크 사용량 확인**: `docker system df`
+- **리소스 정리**: `docker system prune`
 ---
 
 ## 추가 학습 과제
